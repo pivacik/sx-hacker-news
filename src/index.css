@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Navbar */
+
+nav {
+  display: flex;
+  padding: 0;
+  background: #ff6701;
+}
+
+nav section {
+  width: 100%;
+}
+
+nav section h1 {
+  margin: 15px auto;
+  color: white;
+}
+
+section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section h1 {
+  font-size: 2rem;
+}
