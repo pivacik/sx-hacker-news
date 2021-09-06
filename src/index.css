@@ -28,3 +28,10 @@ section {
 section h1 {
   font-size: 2rem;
 }
+
+.story-excerpt {
+  padding: 0.5rem;
+  border: 1px solid rgb(177, 174, 174);
+  border-radius: 7px;
+  margin-bottom: 20px;
+}

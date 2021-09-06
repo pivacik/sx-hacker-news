@@ -1,23 +1,36 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { newsApi } from "../api/newsApi";
+import { fetchHundredNews } from "../api/hackNewsApi";
 
 const initialState = {
-  news: [],
+  stories: [],
   status: "idle",
   error: null,
 };
-//hacker-news.firebaseio.com/v0/topstories.json?print=pretty&limitToFirst=100&orderBy=%22$key%22
+
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
-  const response = await fetch(
-    `${newsApi.baseUrl}/newstories${newsApi.fileExtension}${newsApi.limitFirstHundred}`
-  );
-  console.log(response.json());
+  const response = await fetchHundredNews();
+  return response;
 });
+
+export const fetchSingleStory = createAsyncThunk(
+  "news/fetchSingleStory",
+  async (id) => {}
+);
 
 const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchNews.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchNews.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.stories = action.payload;
+      });
+  },
 });
 
 export default newsSlice.reducer;
