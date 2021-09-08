@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchNews } from "../features/newsSlice";
+import { TimeAgo } from "./TimeAgo";
 
 const StoryExcerpt = ({ story }) => {
   return (
-    <article className="story-excerpt" key={story.id}>
-      <h2>{story.title}</h2>
-      <div>
-        <h3>by {story.by}</h3>
-      </div>
-    </article>
+    <Link to={`/stories/${story.id}`}>
+      <article className="story-excerpt" key={story.id}>
+        <h2>{story.title}</h2>
+        <div>
+          <span>by {story.by}</span>
+          <TimeAgo timestamp={story.time} />
+        </div>
+      </article>
+    </Link>
   );
 };
 
@@ -20,10 +25,9 @@ export const NewsList = () => {
   const newsStatus = useSelector((state) => state.news.status);
 
   useEffect(() => {
-    if (newsStatus === "idle") {
-      dispatch(fetchNews());
-    }
-  }, [newsStatus, dispatch]);
+    if (stories.length < 100) dispatch(fetchNews());
+    return () => {};
+  }, []);
 
   let content;
 
@@ -37,7 +41,7 @@ export const NewsList = () => {
 
   return (
     <section>
-      <h2>News</h2>
+      <h2>Last News</h2>
       {content}
     </section>
   );

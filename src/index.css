@@ -23,6 +23,7 @@ nav section h1 {
 section {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 section h1 {
