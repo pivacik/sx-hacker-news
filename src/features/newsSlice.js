@@ -3,6 +3,7 @@ import { fetchHundredNews, fetchStoryById } from "../api/hackNewsApi";
 
 const initialState = {
   stories: [],
+  singleStory: [],
   status: "idle",
   error: null,
 };
@@ -33,10 +34,14 @@ const newsSlice = createSlice({
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.stories = action.payload;
+        state.stories.sort((a, b) => a - b);
+      })
+      .addCase(fetchNews.rejected, (state, action) => {
+        state.status = "failed";
       })
       .addCase(fetchSingleStory.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.stories.push(action.payload);
+        state.singleStory.push(action.payload);
       })
       .addCase(fetchSingleStory.rejected, (state, action) => {
         state.status = "failed";

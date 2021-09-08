@@ -13,11 +13,26 @@ nav {
 
 nav section {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav section h1 {
   margin: 15px auto;
   color: white;
+}
+
+nav button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #8a03b0;
+  padding: 7px 12px;
+}
+nav button h2 {
+  margin: 0;
+  padding: 0;
 }
 
 section {

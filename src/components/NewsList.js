@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchNews } from "../features/newsSlice";
@@ -22,22 +22,21 @@ export const NewsList = () => {
   const dispatch = useDispatch();
 
   const stories = useSelector((state) => state.news.stories);
-  const newsStatus = useSelector((state) => state.news.status);
+
+  const [updateCount, setUpdateCount] = useState(0);
 
   useEffect(() => {
-    if (stories.length < 100) dispatch(fetchNews());
-    return () => {};
-  }, []);
+    const interval = setInterval(
+      () => setUpdateCount((updateCount) => updateCount + 1),
+      1000 * 60
+    );
+    dispatch(fetchNews());
+    return () => clearInterval(interval);
+  }, [updateCount]);
 
-  let content;
-
-  if (newsStatus === "loading") {
-    content = <h2>Loading...</h2>;
-  } else if (newsStatus === "succeeded") {
-    content = stories.map((story) => (
-      <StoryExcerpt key={story.id} story={story} />
-    ));
-  }
+  const content = stories.map((story) => (
+    <StoryExcerpt key={story.id} story={story} />
+  ));
 
   return (
     <section>
