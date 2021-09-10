@@ -9,7 +9,7 @@ import {
 import { Spinner } from "./Spinner";
 import { TimeAgo } from "./TimeAgo";
 
-export const SingleStoryPage = ({ match }) => {
+export const SingleStory = ({ match }) => {
   //get storyId from the url and parse
   const { storyId } = match.params;
   const storyIdInt = parseInt(storyId) || 0;
@@ -56,12 +56,7 @@ export const SingleStoryPage = ({ match }) => {
   }
   return (
     <section>
-      <article className="story">
-        {content}
-        <Link to={"/"} className="button">
-          Back to main page
-        </Link>
-      </article>
+      <article className="story">{content}</article>
     </section>
   );
 };

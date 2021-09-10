@@ -147,3 +147,9 @@ section h1 {
   font-size: 20px;
   cursor: pointer;
 }
+
+.icon-back {
+  fill: white;
+  height: 30px;
+  width: 30px;
+}

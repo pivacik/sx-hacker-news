@@ -7,16 +7,14 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { Navbar } from "./components/Navbar";
-import { NewsList } from "./components/NewsList";
-import { SingleStoryPage } from "./components/SingleStoryPage";
+import { MainPage } from "./pages/MainPage";
+import { SingleStoryPage } from "./pages/SingleStoryPage";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Switch>
-        <Route exact path="/" component={NewsList} />
+        <Route exact path="/" component={MainPage} />
         <Route exact path="/stories/:storyId" component={SingleStoryPage} />
         <Redirect to="/" />
       </Switch>
