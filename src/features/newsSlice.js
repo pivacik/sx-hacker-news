@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchHundredNews, fetchStoryById } from "../api/hackNewsApi";
+import { fetchHundredNews, fetchItemById } from "../api/hackNewsApi";
 
 const initialState = {
   stories: [],
-  singleStory: [],
+  singleStory: null,
   singleStoryStatus: "idle",
   status: "idle",
   error: null,
@@ -17,7 +17,7 @@ export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
 export const fetchSingleStory = createAsyncThunk(
   "news/fetchSingleStory",
   async (id) => {
-    const response = await fetchStoryById(id);
+    const response = await fetchItemById(id);
     return response;
   }
 );
@@ -30,11 +30,11 @@ const newsSlice = createSlice({
       const { storyId } = action.payload;
       const existingStory = state.stories.find((story) => story.id === storyId);
       if (existingStory) {
-        state.singleStory.push(existingStory);
+        state.singleStory = existingStory;
       }
     },
     storyUnselected(state, action) {
-      state.singleStory = [];
+      state.singleStory = null;
       state.singleStoryStatus = "idle";
     },
   },
@@ -45,18 +45,16 @@ const newsSlice = createSlice({
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.stories = action.payload;
+        state.stories = action.payload.filter((story) => story !== null);
         state.stories.sort((a, b) => a - b);
       })
-      .addCase(fetchNews.rejected, (state, action) => {
-        state.status = "failed";
-      })
+
       .addCase(fetchSingleStory.pending, (state, action) => {
         state.singleStoryStatus = "loading";
       })
       .addCase(fetchSingleStory.fulfilled, (state, action) => {
         state.singleStoryStatus = "succeeded";
-        state.singleStory.push(action.payload);
+        state.singleStory = action.payload;
       })
       .addCase(fetchSingleStory.rejected, (state, action) => {
         state.singleStoryStatus = "failed";

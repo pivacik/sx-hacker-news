@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  fetchSingleStory,
-  storySelected,
-  storyUnselected,
-} from "../features/newsSlice";
+import { fetchSingleStory, storyUnselected } from "../features/newsSlice";
 import { Spinner } from "./Spinner";
 import { TimeAgo } from "./TimeAgo";
 
@@ -17,9 +12,7 @@ export const SingleStory = ({ match }) => {
   const dispatch = useDispatch();
 
   const storyStatus = useSelector((state) => state.news.singleStoryStatus);
-  const story = useSelector((state) =>
-    state.news.singleStory.find((story) => story.id === storyIdInt)
-  );
+  const story = useSelector((state) => state.news.singleStory);
 
   useEffect(() => {
     if (!story) {

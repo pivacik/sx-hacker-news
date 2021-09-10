@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchNews, storySelected } from "../features/newsSlice";
 import { Spinner } from "./Spinner";
 import { TimeAgo } from "./TimeAgo";
+import { ReactComponent as Rating } from "../misc/icons/icons8-bookmark.svg";
 
 export const NewsList = () => {
   const dispatch = useDispatch();
@@ -14,11 +15,20 @@ export const NewsList = () => {
 
   const StoryExcerpt = ({ story }) => {
     return (
-      <Link to={`/stories/${story.id}`} onClick={() => storyClicked(story.id)}>
+      <Link
+        className="main-page-story"
+        to={`/stories/${story.id}`}
+        onClick={() => storyClicked(story.id)}
+      >
         <article className="story-excerpt" key={story.id}>
-          <h2>{story.title}</h2>
-          <div>
-            <span>by {story.by}</span>
+          <h2 className="story-title">{story.title}</h2>
+
+          <div className="story-info">
+            <div className="story-rating">
+              <Rating className="rating-icon" />
+              <span>{story.score || 0}</span>
+            </div>
+            <span>{story.by}</span>
             <TimeAgo timestamp={story.time} />
           </div>
         </article>

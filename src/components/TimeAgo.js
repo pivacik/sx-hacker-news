@@ -3,15 +3,16 @@ import { formatDistanceToNow } from "date-fns";
 
 export const TimeAgo = ({ timestamp }) => {
   let timeAgo = "";
+  let date;
   if (timestamp) {
-    const date = new Date(timestamp * 1000);
+    date = new Date(timestamp * 1000);
     const timePeriod = formatDistanceToNow(date);
     timeAgo = `${timePeriod} ago`;
   }
 
   return (
-    <span title={timestamp}>
-      &nbsp;| <i>{timeAgo}</i>
+    <span className="time-posted" title={date}>
+      &nbsp; <i>{timeAgo}</i>
     </span>
   );
 };
