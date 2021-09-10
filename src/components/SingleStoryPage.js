@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSingleStory, selectStoryById } from "../features/newsSlice";
+import {
+  fetchSingleStory,
+  storySelected,
+  storyUnselected,
+} from "../features/newsSlice";
+import { Spinner } from "./Spinner";
 import { TimeAgo } from "./TimeAgo";
 
 export const SingleStoryPage = ({ match }) => {
@@ -11,23 +16,27 @@ export const SingleStoryPage = ({ match }) => {
 
   const dispatch = useDispatch();
 
-  //   check if the story is arlready in the store
-  const newsStatus = useSelector((state) => state.news.status);
-  const story = useSelector((state) => selectStoryById(state, storyIdInt));
+  const storyStatus = useSelector((state) => state.news.singleStoryStatus);
+  const story = useSelector((state) =>
+    state.news.singleStory.find((story) => story.id === storyIdInt)
+  );
 
   useEffect(() => {
     if (!story) {
       dispatch(fetchSingleStory(storyIdInt));
     }
+    return () => {
+      dispatch(storyUnselected());
+    };
   }, []);
 
   let content;
 
-  if (newsStatus === "loading") {
-    content = <h2>Loading...</h2>;
-  } else if (newsStatus === "failed") {
+  if (storyStatus === "loading") {
+    content = <Spinner text=" Loading..." />;
+  } else if (storyStatus === "failed") {
     content = <h2>Page not found!</h2>;
-  } else if (newsStatus === "succeeded") {
+  } else if (story) {
     if (story.type !== "story") {
       content = <h2>We couldn't find any story with this Id</h2>;
     } else {

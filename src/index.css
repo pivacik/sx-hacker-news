@@ -23,18 +23,6 @@ nav section h1 {
   color: white;
 }
 
-nav button {
-  border: none;
-  border-radius: 5px;
-  color: white;
-  background-color: #8a03b0;
-  padding: 7px 12px;
-}
-nav button h2 {
-  margin: 0;
-  padding: 0;
-}
-
 section {
   max-width: 800px;
   margin: 0 auto;
@@ -50,4 +38,112 @@ section h1 {
   border: 1px solid rgb(177, 174, 174);
   border-radius: 7px;
   margin-bottom: 20px;
+}
+
+/* Spinner */
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner h4 {
+  margin: 5px;
+}
+
+/* https://projects.lukehaas.me/css-loaders/ , Loader #3 */
+.loader {
+  font-size: 10px;
+  margin: 10px;
+  /* text-indent: -9999em; */
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background: orange;
+  background: -moz-linear-gradient(left, orange 10%, rgba(128, 0, 255, 0) 42%);
+  background: -webkit-linear-gradient(
+    left,
+    orange 10%,
+    rgba(128, 0, 255, 0) 42%
+  );
+  background: -o-linear-gradient(left, orange 10%, rgba(128, 0, 255, 0) 42%);
+  background: -ms-linear-gradient(left, orange 10%, rgba(128, 0, 255, 0) 42%);
+  background: linear-gradient(to right, orange 10%, rgba(128, 0, 255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: orange;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+}
+
+.loader:after {
+  background: #ffffff;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: "";
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.newspage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refresh-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refresh-button button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #8a03b0;
+  padding: 7px 12px;
+  font-size: 20px;
+  cursor: pointer;
 }
